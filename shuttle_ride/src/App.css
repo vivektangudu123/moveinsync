@@ -1,0 +1,322 @@
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* App.css */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  background-color: #add8e6; /* Light blue background */
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.admin-login {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+button {
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Center the entire login UI vertically and horizontally */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Style for the login card */
+.login-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Login title styling */
+.login-title {
+  font-size: 24px;
+  margin-bottom: 1.5rem;
+}
+
+/* Input field styling */
+.input-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Button styling */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Link styling */
+p {
+  font-size: 14px;
+  margin-top: 1rem;
+}
+
+p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+.bus-results {
+  margin-top: 20px;
+}
+
+.bus-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.bus-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  color: white; /* Text color */
+}
+
+.live {
+  background-color: green;
+}
+
+.not-live {
+  background-color: red;
+}
+
+.status-indicator {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+.bus-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Spacing between items */
+  justify-content: space-around;
+}
+
+.bus-item {
+  width: 350px; /* Increased width */
+  height: 150px; /* Decreased height */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+}
+
+.bus-item:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.bus-item h3 {
+  font-size: 1.2rem; /* Reduced font size to fit the new height */
+  margin-bottom: 5px;
+}
+
+.bus-item p {
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+}
+
+.live-status {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.live {
+  background-color: green; /* Example background for live buses */
+}
+
+.not-live {
+  background-color: red; /* Example background for not-live buses */
+}
+.seat-plan-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 seats per row */
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.seat {
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.close-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #c82333;
+}
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 seats per row */
+  gap: 10px;
+}
+
+.seat-btn {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.booked {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.book-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.book-btn:hover {
+  background-color: #45a049;
+}
+
+.close-btn {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.close-btn:hover {
+  background-color: darkred;
+}

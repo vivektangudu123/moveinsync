@@ -1,0 +1,33 @@
+.manage-bookings-container {
+    padding: 20px;
+  }
+  
+  .bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .bookings-table th,
+  .bookings-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .bookings-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .cancel-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn:hover {
+    background-color: darkred;
+  }
+  
