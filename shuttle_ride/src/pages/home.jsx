@@ -13,11 +13,10 @@ const HomePage = () => {
   const [destinationLongitude, setDestinationLongitude] = useState("");
   const [selectedSeatPlan, setSelectedSeatPlan] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
-  const [selectedBusId, setSelectedBusId] = useState(null); // New state for busId
+  const [selectedBusId, setSelectedBusId] = useState(null); 
   const [selectedColumn, setSelectedColumns] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // JWT verification
   useEffect(() => {
     const token = localStorage.getItem('JWT');
     if (token) {
@@ -79,13 +78,13 @@ const HomePage = () => {
               seat: selectedSeat,
               s1: sourceLatitude,
               s2: sourceLongitude,
-              d1: destinationLatitude,  // Corrected
-              d2: destinationLongitude,  // Corrected
+              d1: destinationLatitude,  
+              d2: destinationLongitude,  
               jwt: token
           })
         });
 
-        const data = await response.text();  // Await the response
+        const data = await response.text(); 
         if (response.ok && data === "true") {
           alert("Seat booked successfully!");
         } else {
@@ -200,21 +199,19 @@ const HomePage = () => {
                  }}>
               {Object.keys(selectedSeatPlan)
                 .sort((a, b) => {
-                  // Extract number and letter from seat (e.g., "1A")
                   const [aNumber, aLetter] = [parseInt(a[0]), a[1]];
                   const [bNumber, bLetter] = [parseInt(b[0]), b[1]];
 
-                  // Sort by number first, then by letter
                   if (aNumber === bNumber) {
-                    return aLetter.localeCompare(bLetter); // Sort alphabetically if numbers are the same
+                    return aLetter.localeCompare(bLetter); 
                   }
-                  return aNumber - bNumber; // Sort numerically
+                  return aNumber - bNumber; 
                 })
                 .map((seatNumber) => (
                   <button
                     key={seatNumber}
                     className={`seat-btn ${selectedSeatPlan[seatNumber] ? 'available' : 'booked'}`}
-                    disabled={!selectedSeatPlan[seatNumber]} // Disable button if seat is booked
+                    disabled={!selectedSeatPlan[seatNumber]} 
                     onClick={() => handleSeatSelect(seatNumber)}
                     style={{
                       backgroundColor: selectedSeat === seatNumber
@@ -229,7 +226,6 @@ const HomePage = () => {
                 ))}
             </div>
 
-            {/* Display Book button only if one seat is selected */}
             {selectedSeat && (
               <button className="book-btn" onClick={handleBooking}>Book Seat</button>
             )}

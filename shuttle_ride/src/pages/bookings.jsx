@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./ManageBookings.css"; // Ensure you have styles for this component
+import "./ManageBookings.css"; 
 import { getUserBookings, cancelBooking } from "../apicalls/user"; // API calls
 
 function ManageBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // Added error state
+  const [error, setError] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const response = await getUserBookings();
-        console.log(response)// Fetch bookings from the backend
-        setBookings(response); // Directly set the bookings array
+        console.log(response)
+        setBookings(response); 
         if (response.length === 0) {
-          setError("No bookings found."); // Handle no bookings
+          setError("No bookings found."); 
         }
       } catch (error) {
         console.error("Error fetching bookings:", error);
-        setError("Failed to fetch bookings."); // Set error message
+        setError("Failed to fetch bookings."); 
       } finally {
-        setLoading(false); // Always set loading to false after fetch attempt
+        setLoading(false); 
       }
     };
 
@@ -31,11 +31,10 @@ function ManageBookings() {
 
   const handleCancel = async (bookingId) => {
     try {
-      const response = await cancelBooking(bookingId); // Call to cancel booking
+      const response = await cancelBooking(bookingId); 
       console.log(response)
       if (response.ok) {
         alert("Booking cancelled successfully!");
-        // Update the booking status locally
         const updatedBookings = bookings.map((booking) =>
           booking.bookingId === bookingId ? { ...booking, status: "CANCELLED" } : booking
         );
@@ -46,16 +45,16 @@ function ManageBookings() {
       }
     } catch (error) {
       console.error("Error cancelling booking:", error);
-      alert("An error occurred while cancelling the booking."); // Alert for cancellation error
+      alert("An error occurred while cancelling the booking."); 
     }
   };
 
   if (loading) {
-    return <p>Loading bookings...</p>; // Display loading message
+    return <p>Loading bookings...</p>; 
   }
 
   if (error) {
-    return <p>{error}</p>; // Display error message if there's an error
+    return <p>{error}</p>; 
   }
 
   return (

@@ -28,30 +28,30 @@ public class Bus {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
-    private Map<String, Boolean> seatPlan; // Seat plan with availability (true = available, false = booked)
+    private Map<String, Boolean> seatPlan; 
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "bus_route", joinColumns = @JoinColumn(name = "bus_id"))
     @Column(name = "route")
-    private List<Pair<Integer, Integer>> route; // List of (source, destination) pairs
+    private List<Pair<Integer, Integer>> route; 
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "available_days", joinColumns = @JoinColumn(name = "bus_id"))
     @Column(name = "day")
-    private List<String> availableDays; // List of available days (e.g., ["Monday", "Wednesday"])
+    private List<String> availableDays; 
 
     @Column(nullable = false)
-    private Pair<Integer, Integer> currentLocation; // Current location of the bus
+    private Pair<Integer, Integer> currentLocation; 
 
     @Column(nullable = false)
-    private boolean isLive; // Status of the bus
+    private boolean isLive; 
 
     public Bus() {
         this.seatPlan = generateDefaultSeatPlan();
         this.route = new ArrayList<>();
         this.availableDays = generateDefaultAvailableDays();
-        this.currentLocation = route.isEmpty() ? null : route.get(0); // Set to first location in route
-        this.isLive = false; // Initialize as not live
+        this.currentLocation = route.isEmpty() ? null : route.get(0); 
+        this.isLive = false; 
     }
 
     public Bus(String busName, int totalColumns, int totalRows, int currentOccupancy, List<Pair<Integer, Integer>> route) {
@@ -61,29 +61,28 @@ public class Bus {
         this.currentOccupancy = currentOccupancy;
         this.route = route;
         this.availableDays = generateDefaultAvailableDays();
-        this.currentLocation = route.isEmpty() ? null : route.get(0); // Set to first location in route
-        this.isLive = false; // Initialize as not live
+        this.currentLocation = route.isEmpty() ? null : route.get(0); 
+        this.isLive = false; 
         this.seatPlan = generateDefaultSeatPlan();
     }
 
     // Generate seat plan dynamically based on total rows and columns
     private Map<String, Boolean> generateDefaultSeatPlan() {
         Map<String, Boolean> seatPlan = new HashMap<>();
-        String[] columns = generateColumnLetters(totalColumns); // Generate column letters dynamically
+        String[] columns = generateColumnLetters(totalColumns); 
 
         for (int row = 1; row <= totalRows; row++) {
             for (String column : columns) {
-                seatPlan.put(row + column, true); // All seats are available initially
+                seatPlan.put(row + column, true); 
             }
         }
         return seatPlan;
     }
 
-    // Generate column letters (A, B, C, ..., depending on totalColumns)
     private String[] generateColumnLetters(int totalColumns) {
         String[] columns = new String[totalColumns];
         for (int i = 0; i < totalColumns; i++) {
-            columns[i] = String.valueOf((char) ('A' + i)); // 'A' + i generates letters A, B, C, etc.
+            columns[i] = String.valueOf((char) ('A' + i)); 
         }
         return columns;
     }

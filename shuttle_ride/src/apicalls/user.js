@@ -5,8 +5,8 @@ export const loginUser = async (mobileNumber, Role) => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                mobileNumber: mobileNumber, // ensure this is a string
-                role: Role                   // ensure this is an integer
+                mobileNumber: mobileNumber, 
+                role: Role                   
             })
         });
 
@@ -32,8 +32,8 @@ export const Login_OTP = async (mobileNumber, otp) => {
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                mobileNumber: mobileNumber, // ensure this is a string
-                otp: otp                   // ensure this is an integer
+                mobileNumber: mobileNumber, 
+                otp: otp                   
             })
         });
         if (response.ok) {
@@ -88,7 +88,7 @@ export const book_seat = async (busId,seat,s1,s2,d1,d2) => {
             d2: d2,
             jwt: token
         })
-    }).then(response => response.text()) // or use response.json() if it's JSON data
+    }).then(response => response.text()) 
     .then(data => {
         console.log(data); 
         return true;
@@ -118,7 +118,7 @@ export const search_busses = async (s1, s2, d1, d2) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Include token if required
+            'Authorization': `Bearer ${token}`, 
         },
         body: JSON.stringify({
             s1: s1,

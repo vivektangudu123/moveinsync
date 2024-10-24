@@ -16,7 +16,7 @@ public class Booking {
     private int bookingId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false) // Foreign key to the User entity
+    @JoinColumn(name = "userId", nullable = false) 
     private User user; // Reference to the User entity
 
     private String seatNumber; // The seat number booked
@@ -25,17 +25,17 @@ public class Booking {
     @JoinColumn(name = "busId", nullable = false) // Foreign key to the Bus entity
     private Bus bus;
 
-    private LocalDateTime bookingTime; // Time when the booking was made
+    private LocalDateTime bookingTime; 
 
     @Column(nullable = false)
     private LocalDate travelDate; // Date of the journey
 
-    private Pair<Integer, Integer> source; // Source location
-    private Pair<Integer, Integer> destination; // Destination location
+    private Pair<Integer, Integer> source; 
+    private Pair<Integer, Integer> destination;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BookingStatus status; // Status of the booking
+    private BookingStatus status; 
 
     public Booking(User user, String seatNumber, Bus bus, LocalDateTime bookingTime, LocalDate travelDate,Pair<Integer, Integer> source,Pair<Integer, Integer> destination) {
         this.user = user;

@@ -10,6 +10,6 @@ import java.util.List;
 
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findByUser_userId(int userId); // Access user_id through the user object
-    List<Booking> findByBus_busId(int busId);       // This method can remain as is if your Bus entity has an 'id' field
+    List<Booking> findByUser_userId(int userId); 
+    List<Booking> findByBus_busId(int busId);       
 }

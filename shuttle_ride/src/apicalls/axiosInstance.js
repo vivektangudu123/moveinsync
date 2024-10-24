@@ -1,11 +1,3 @@
-// import axios from 'axios';
-
-// export const axiosInstance = axios.create({
-//     headers: {
-//         authorization: `Bearer ${localStorage.getItem('token')}`,
-//     },
-// });
-
 export const verify_jwt = async (token) => {
 
     await fetch("http://localhost:5001" + '/auth/jwt', {

@@ -72,10 +72,10 @@ function Registration() {
             const data = await response.text();
             if (data === "Success" && response.ok) {
                 alert("Registration Done");
-                navigate("/home");  // Redirect to the home page
-                clearForm();  // Clear the form after successful registration
+                navigate("/home"); 
+                clearForm();  
             } else {
-                alert(data);  // Handle errors, such as email/phone number already existing
+                alert(data);  
             }
 
         } catch (error) {
