@@ -87,7 +87,9 @@ public class UserController {
                 ))
                 .collect(Collectors.toList());
 
-
+//        for(BookingDTO a: bookingDTOs){
+////            System.out.println(a.getBookingTime());
+//        }
         return ResponseEntity.ok(bookingDTOs);
     }
 

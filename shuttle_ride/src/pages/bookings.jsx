@@ -85,21 +85,7 @@ function ManageBookings() {
   {(() => {
     const [year, month, day, hour, minute, second, millisecond] = booking.bookingTime;
 
-    const date = new Date(year, month - 1, day, hour, minute, second, millisecond);
-
-    const formattedDate = date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long', 
-      day: 'numeric'
-    });
-
-    const formattedTime = date.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
-
-    return `${formattedDate}, ${formattedTime}`; 
+    return `Date: ${day}:${month}:${year}    Time: ${hour}:${minute} `; 
   })()}
 </td>
 
