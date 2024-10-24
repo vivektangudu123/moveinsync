@@ -273,7 +273,7 @@ p a:hover {
 }
 .seat-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 seats per row */
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 

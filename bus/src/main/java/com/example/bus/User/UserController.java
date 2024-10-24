@@ -96,21 +96,21 @@ public class UserController {
     public boolean cancelBooking(@RequestBody Map<String, Object> payload) throws Exception {
         String jwt = (String) payload.get("jwt");
 
-        String booking_str = (String) payload.get("BookingID");
+        int booking_str = (Integer) payload.get("BookingID");
         System.out.println(booking_str);
         int bookingId;
         try {
-            bookingId = Integer.parseInt(booking_str);
+//            bookingId = Integer.parseInt(booking_str);
         } catch (NumberFormatException e) {
             // Handle the case where the string cannot be parsed as an integer
             throw new Exception("Invalid BookingID format", e);
         }
-        userService.cancel_seat(bookingId);
+        userService.cancel_seat(booking_str);
         return true;
     }
     @CrossOrigin
     @PostMapping("/users/seat-booking")
-    public boolean seatBooking(@RequestBody Map<String, Object> payload) throws Exception {
+    public String seatBooking(@RequestBody Map<String, Object> payload) throws Exception {
         String jwt = (String) payload.get("jwt");
         int BusId = (int) payload.get("BusId");
         String seat=(String) payload.get("seat");
@@ -120,7 +120,7 @@ public class UserController {
         String dd2=(String) payload.get("d2");
         String mobileNUmber = authenticationController.verify_jwt(jwt);
         User user = userRepository.findByPhoneNumber(mobileNUmber);
-        int s1,s2,d1,d2;
+        int s1,s2,d1,d2,bus;
         try {
 //            bus = Integer.parseInt(BusId);
             s1=Integer.parseInt(ss1);
@@ -133,9 +133,9 @@ public class UserController {
         }
         Bus bu=busService.findBybusId(BusId);
         if(bookingService.addBooking(user,seat,bu, LocalDateTime.now(), LocalDate.now().plusDays(1),new Pair<>(s1,s2),new Pair<>(d1,d2))){
-            return true;
+            return "true";
         }
-        return false;
+        return "false";
     }
 
     @CrossOrigin
@@ -155,7 +155,8 @@ public class UserController {
                     .map(bus -> new BusDTO(
                             bus.getId(),
                             bus.getBusName(),
-                            bus.getTotalSeats(),
+                            bus.getTotalColumns(),
+                            bus.getTotalRows(),
                             bus.getCurrentOccupancy(),
                             bus.getSeatAvailabilityColor(),
                             bus.getSeatPlan(),

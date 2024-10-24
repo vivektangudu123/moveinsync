@@ -18,7 +18,10 @@ public class Bus {
     private String busName;
 
     @Column(nullable = false)
-    private int totalSeats;
+    private int totalColumns;
+
+    @Column(nullable = false)
+    private int totalRows;
 
     @Column(nullable = false)
     private int currentOccupancy;
@@ -51,9 +54,10 @@ public class Bus {
         this.isLive = false; // Initialize as not live
     }
 
-    public Bus(String busName, int totalSeats, int currentOccupancy, List<Pair<Integer, Integer>> route) {
+    public Bus(String busName, int totalColumns, int totalRows, int currentOccupancy, List<Pair<Integer, Integer>> route) {
         this.busName = busName;
-        this.totalSeats = totalSeats;
+        this.totalColumns = totalColumns;
+        this.totalRows = totalRows;
         this.currentOccupancy = currentOccupancy;
         this.route = route;
         this.availableDays = generateDefaultAvailableDays();
@@ -62,19 +66,26 @@ public class Bus {
         this.seatPlan = generateDefaultSeatPlan();
     }
 
-    // Generate seat plan with default seats (1A, 1B, 1C, 1D, etc.) and set them all as available initially
+    // Generate seat plan dynamically based on total rows and columns
     private Map<String, Boolean> generateDefaultSeatPlan() {
         Map<String, Boolean> seatPlan = new HashMap<>();
-        String[] rows = {"1", "2", "3", "4"};
-        String[] columns = {"A", "B", "C", "D"};
+        String[] columns = generateColumnLetters(totalColumns); // Generate column letters dynamically
 
-        for (int i=1;i<=totalSeats/4;i++) {
-            String row=Integer.toString(i);
+        for (int row = 1; row <= totalRows; row++) {
             for (String column : columns) {
                 seatPlan.put(row + column, true); // All seats are available initially
             }
         }
         return seatPlan;
+    }
+
+    // Generate column letters (A, B, C, ..., depending on totalColumns)
+    private String[] generateColumnLetters(int totalColumns) {
+        String[] columns = new String[totalColumns];
+        for (int i = 0; i < totalColumns; i++) {
+            columns[i] = String.valueOf((char) ('A' + i)); // 'A' + i generates letters A, B, C, etc.
+        }
+        return columns;
     }
 
     // Generate the list of all days of the week
@@ -96,21 +107,12 @@ public class Bus {
         return busId;
     }
 
-
     public String getBusName() {
         return busName;
     }
 
     public void setBusName(String busName) {
         this.busName = busName;
-    }
-
-    public int getTotalSeats() {
-        return totalSeats;
-    }
-
-    public void setTotalSeats(int totalSeats) {
-        this.totalSeats = totalSeats;
     }
 
     public int getCurrentOccupancy() {
@@ -172,7 +174,7 @@ public class Bus {
         return false; // Seat not available or does not exist
     }
 
-    // Method to cancel a seat
+    // Method to cancel a seat booking
     public boolean cancelSeatBooking(String seatNumber) {
         if (seatPlan.get(seatNumber) != null && !seatPlan.get(seatNumber)) {
             seatPlan.put(seatNumber, true); // Mark the seat as available
@@ -184,7 +186,7 @@ public class Bus {
 
     // Calculate occupancy percentage
     public double getOccupancyPercentage() {
-        return (double) currentOccupancy / totalSeats * 100;
+        return (double) currentOccupancy / (totalColumns * totalRows) * 100;
     }
 
     // Color coding for seat availability based on occupancy percentage
@@ -198,14 +200,15 @@ public class Bus {
             return "Red";
         }
     }
+
+    // Print the seat plan with color coding for availability
     public void printSeatPlan() {
         String resetColor = "\u001B[0m";
         String bookedColor = "\u001B[31m";
         String availableColor = "\u001B[37m";
-        String[] rows = {"1", "2", "3", "4"};
-        String[] columns = {"A", "B", "C", "D"};
+        String[] columns = generateColumnLetters(totalColumns);
 
-        for (String row : rows) {
+        for (int row = 1; row <= totalRows; row++) {
             for (String column : columns) {
                 String seatNumber = row + column;
                 if (seatPlan.get(seatNumber)) {
@@ -216,5 +219,21 @@ public class Bus {
             }
             System.out.println();
         }
+    }
+
+    public int getTotalColumns() {
+        return totalColumns;
+    }
+
+    public void setTotalColumns(int totalColumns) {
+        this.totalColumns = totalColumns;
+    }
+
+    public int getTotalRows() {
+        return totalRows;
+    }
+
+    public void setTotalRows(int totalRows) {
+        this.totalRows = totalRows;
     }
 }

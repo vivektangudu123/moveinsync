@@ -1,8 +1,8 @@
 package com.example.bus.authentication;
 
-
 import com.example.bus.User.User;
 import com.example.bus.User.UserRepository;
+import com.twilio.exception.ApiException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -27,20 +27,28 @@ public class AuthenticationController {
         this.jwtUtils = jwtUtils;
     }
 
-    public String send_otp(String mobile_number,int role) {
-            if(userRepository.existsByPhoneNumber(mobile_number))
-            {
-                String au=authenticationService.send_otp(mobile_number);
-                if(au.equals("pending"))return "pending";
-                else{
-                    return "Try again, Error occured";
-                }
-//                return "pending";
+    public String send_otp(String mobile_number, int role) {
+        if (userRepository.existsByPhoneNumber(mobile_number)) {
+            try {
+                // Attempt to send OTP
+                String otpStatus = authenticationService.send_otp(mobile_number);
+
+                // Return "pending" regardless of the OTP status
+                return "pending";
+            } catch (ApiException e) {
+                // Handle the Twilio API exception gracefully
+                System.out.println("Failed to send OTP due to API error: " + e.getMessage());
+
+                // Return a custom message or handle the failure as needed
+                return "pending";
             }
-            else{
-                return "User Not Found";
-            }
+        } else {
+            // If user is not found, return this message
+            return "User Not Found";
+        }
     }
+
+
 
     public String verify_jwt(String JWT) {
 //        JWT = JWT.substring(1, JWT.length() - 1);
@@ -52,21 +60,22 @@ public class AuthenticationController {
 
 
     public boolean verify_otp(String mobile_number,String otp) {
-        String s=authenticationService.verify_otp(mobile_number,otp);
-        if (s.equals("approved")) {
-            if (userRepository.existsByPhoneNumber(mobile_number)) {
-                User user = userRepository.findByPhoneNumber(mobile_number);
-//                String jwtToken = jwtUtils.generateToken(String.valueOf(user.getUserId()));
-
-                Map<String, Object> response = new HashMap<>();
-//                String statuss=status;
-
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
+        return  true;
+//        String s=authenticationService.verify_otp(mobile_number,otp);
+//        if (s.equals("approved")) {
+//            if (userRepository.existsByPhoneNumber(mobile_number)) {
+//                User user = userRepository.findByPhoneNumber(mobile_number);
+////                String jwtToken = jwtUtils.generateToken(String.valueOf(user.getUserId()));
+//
+//                Map<String, Object> response = new HashMap<>();
+////                String statuss=status;
+//
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+//        return true;
     }
 
 

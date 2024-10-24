@@ -68,7 +68,7 @@ function ManageBookings() {
             <th>Bus name</th>
             <th>Seat Number</th>
             <th>Booking Time</th>
-            <th>Travel Date</th>
+            {/* <th>Travel Date</th> */}
             {/* <th>Source</th> */}
             {/* <th>Destination</th> */}
             <th>Status</th>
@@ -103,7 +103,7 @@ function ManageBookings() {
   })()}
 </td>
 
-              <td>{new Date(booking.travelDate).toLocaleDateString()}</td>
+              {/* <td>{new Date(booking.travelDate).toLocaleDateString()}</td> */}
               {/* <td>
                 ({booking.source}, {booking.source})
               </td>

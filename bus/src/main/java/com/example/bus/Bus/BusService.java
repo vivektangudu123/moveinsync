@@ -26,7 +26,8 @@ public class BusService {
         if (optionalBus.isPresent()) {
             Bus bus = optionalBus.get();
             bus.setBusName(updatedBus.getBusName());
-            bus.setTotalSeats(updatedBus.getTotalSeats());
+            bus.setTotalColumns(updatedBus.getTotalColumns());
+            bus.setTotalRows(updatedBus.getTotalRows());
             bus.setCurrentOccupancy(updatedBus.getCurrentOccupancy());
             bus.setRoute(updatedBus.getRoute());
             bus.setAvailableDays(updatedBus.getAvailableDays());
@@ -103,8 +104,9 @@ public class BusService {
 
         // Get total seats
         System.out.println("Enter Total Rows:  (default value)");
-        int totalSeats = scanner.nextInt();
-
+        int totalrows = scanner.nextInt();
+        System.out.println("Enter Total Columns:  (default value)");
+        int totalcolums = scanner.nextInt();
         // Get current occupancy
         System.out.println("Enter Current Occupancy (number of booked seats): 0");
 //        int currentOccupancy = scanner.nextInt();
@@ -123,7 +125,7 @@ public class BusService {
         }
 
 
-        Bus bus = new Bus(busName, totalSeats*4, 0, route);
+        Bus bus = new Bus(busName,totalcolums,totalrows, 0, route);
 
         busRepository.save(bus);
 

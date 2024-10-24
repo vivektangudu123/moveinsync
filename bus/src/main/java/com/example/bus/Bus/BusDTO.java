@@ -7,7 +7,7 @@ public class BusDTO {
 
     private int busId;
     private String busName;
-    private int totalSeats;
+    private int totalColumns,totalRows;
     private int currentOccupancy;
     private Map<String, Boolean> seatPlan;
     private List<Pair<Integer, Integer>> route;
@@ -16,13 +16,14 @@ public class BusDTO {
     private boolean isLive;
     private String currentOccupancycolor;
     // Constructor
-    public BusDTO(int busId, String busName, int totalSeats, int currentOccupancy,
+    public BusDTO(int busId, String busName, int totalColumns,int totalRows, int currentOccupancy,
                   String currentOccupancycolor,Map<String, Boolean> seatPlan,
                   Pair<Integer, Integer> currentLocation,
                   boolean isLive) {
         this.busId = busId;
         this.busName = busName;
-        this.totalSeats = totalSeats;
+        this.totalColumns = totalColumns;
+        this.totalRows=totalRows;
         this.currentOccupancy = currentOccupancy;
         this.currentOccupancycolor=currentOccupancycolor;
         this.seatPlan = seatPlan;
@@ -49,13 +50,6 @@ public class BusDTO {
         this.busName = busName;
     }
 
-    public int getTotalSeats() {
-        return totalSeats;
-    }
-
-    public void setTotalSeats(int totalSeats) {
-        this.totalSeats = totalSeats;
-    }
 
     public int getCurrentOccupancy() {
         return currentOccupancy;
@@ -111,5 +105,21 @@ public class BusDTO {
 
     public void setColor(String color) {
         this.currentOccupancycolor = color;
+    }
+
+    public int getTotalColumns() {
+        return totalColumns;
+    }
+
+    public void setTotalColumns(int totalColumns) {
+        this.totalColumns = totalColumns;
+    }
+
+    public int getTotalRows() {
+        return totalRows;
+    }
+
+    public void setTotalRows(int totalRows) {
+        this.totalRows = totalRows;
     }
 }

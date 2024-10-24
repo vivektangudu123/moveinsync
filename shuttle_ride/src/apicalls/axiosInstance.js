@@ -19,7 +19,10 @@ export const verify_jwt = async (token) => {
          jwt:token
         })
     })
-        .then(response => response.text())
+        .then(response => {
+            console.log(response)
+            response.text()
+        })
         .then(data => {
             console.log(data)
                 return data;

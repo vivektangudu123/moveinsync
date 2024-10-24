@@ -1,3 +1,4 @@
+
 export const loginUser = async (mobileNumber, Role) => {
     try {
         const response = await fetch('http://localhost:5001/auth/send_otp', {
@@ -79,16 +80,22 @@ export const book_seat = async (busId,seat,s1,s2,d1,d2) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            BusId:busId,
+            BusId: busId,
             seat: seat,
             s1: s1,
             s2: s2,
             d1: d1,
             d2: d2,
             jwt: token
-           })
+        })
+    }).then(response => response.text()) // or use response.json() if it's JSON data
+    .then(data => {
+        console.log(data); 
+        return true;
+    })
+    .catch(error => {
+      console.error('Error:', error);
     });
-    return response;
 };
 export const cancelBooking = async (bookingId) => {
     const token = localStorage.getItem('JWT');

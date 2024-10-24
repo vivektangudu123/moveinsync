@@ -79,7 +79,6 @@ public class BookingService {
     private BusRepository busRepository;
     // Add a new booking
     public boolean addBooking(User user, String seatNumber, Bus bus, LocalDateTime bookingTime, LocalDate travelDate, Pair<Integer, Integer> source, Pair<Integer, Integer> destination) {
-
         if(bus.bookSeat(seatNumber)){
             Booking booking = new Booking(user, seatNumber, bus, bookingTime, travelDate, source, destination);
             booking.setStatus(SUCCESSFUL);

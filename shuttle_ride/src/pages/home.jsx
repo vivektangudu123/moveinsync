@@ -14,6 +14,7 @@ const HomePage = () => {
   const [selectedSeatPlan, setSelectedSeatPlan] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [selectedBusId, setSelectedBusId] = useState(null); // New state for busId
+  const [selectedColumn, setSelectedColumns] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // JWT verification
@@ -46,10 +47,18 @@ const HomePage = () => {
     navigate("/login");
   };
 
-  const viewSeatPlan = (seatPlan, busId) => {
+  const viewSeatPlan = (seatPlan, busId, totalColumns) => {
     setSelectedSeatPlan(seatPlan);
-    setSelectedBusId(busId); // Set the selected busId
+    setSelectedBusId(busId); 
+    setSelectedColumns(totalColumns);
     setIsModalOpen(true);
+  };
+
+  const closeseatplan = () => {
+    setSelectedSeatPlan(null);
+    setSelectedBusId(null); 
+    setSelectedColumns(null);
+    setIsModalOpen(false);
   };
 
   const handleSeatSelect = (seatNumber) => {
@@ -57,15 +66,37 @@ const HomePage = () => {
   };
 
   const handleBooking = async () => {
+    const token = localStorage.getItem('JWT');
     try {
       if (selectedSeat && selectedBusId) {
-        // Uncomment this line and implement your booking API call
-        await book_seat(selectedBusId, selectedSeat,sourceLatitude,sourceLongitude,destinationLatitude,destinationLongitude); // Call the booking API with busId and seat
-        alert(`Seat booked: ${selectedSeat} on Bus ID: ${selectedBusId}`);
-        // Reset everything
+        const response = await fetch("http://localhost:5001/users/seat-booking", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              BusId: selectedBusId,
+              seat: selectedSeat,
+              s1: sourceLatitude,
+              s2: sourceLongitude,
+              d1: destinationLatitude,  // Corrected
+              d2: destinationLongitude,  // Corrected
+              jwt: token
+          })
+        });
+
+        const data = await response.text();  // Await the response
+        if (response.ok && data === "true") {
+          alert("Seat booked successfully!");
+        } else {
+          alert("Failed to book seat.");
+        }
+
         setSelectedSeat(null);
-        setSelectedBusId(null); // Reset the busId
+        setSelectedBusId(null); 
         setIsModalOpen(false);
+      } else {
+        alert("Please select a seat and bus.");
       }
     } catch (error) {
       console.error("Error booking seat:", error);
@@ -78,8 +109,9 @@ const HomePage = () => {
       alert("Please fill in both source and destination coordinates.");
       return;
     }
+
     if (sourceLatitude < -1 || sourceLatitude > 20 || destinationLatitude < -1 || destinationLatitude > 20 ||
-      sourceLongitude < -1 || sourceLongitude > 20 || destinationLongitude < -1 || destinationLongitude > 20) {
+        sourceLongitude < -1 || sourceLongitude > 20 || destinationLongitude < -1|| destinationLongitude > 20) {
       alert("Invalid latitude or longitude values. Please enter valid coordinates.");
       return;
     }
@@ -153,17 +185,19 @@ const HomePage = () => {
             <p>Total Seats: {bus.totalSeats}</p>
             <p>Current Occupancy: {bus.currentOccupancy}</p>
             <p className="live-status" style={{ color: bus.live ? 'white' : 'blue' }}>{bus.live ? 'Live' : 'Not Live'}</p>
-            <button className="view-seat-plan-btn" onClick={() => viewSeatPlan(bus.seatPlan, bus.busId)}>View Seat Plan</button>
+            <button className="view-seat-plan-btn" onClick={() => viewSeatPlan(bus.seatPlan, bus.busId,bus.totalColumns)}>View Seat Plan</button>
           </div>
         ))}
       </div>
 
-      {/* Seat Plan Modal */}
+
       {isModalOpen && selectedSeatPlan && (
         <div className="seat-plan-modal">
           <div className="modal-content">
             <h2>Seat Plan</h2>
-            <div className="seat-grid">
+            <div className="seat-grid"
+                style={{ gridTemplateColumns: `repeat(${selectedColumn || 4}, 1fr)`, 
+                 }}>
               {Object.keys(selectedSeatPlan)
                 .sort((a, b) => {
                   // Extract number and letter from seat (e.g., "1A")
@@ -183,7 +217,11 @@ const HomePage = () => {
                     disabled={!selectedSeatPlan[seatNumber]} // Disable button if seat is booked
                     onClick={() => handleSeatSelect(seatNumber)}
                     style={{
-                      backgroundColor: selectedSeat === seatNumber ? 'lightblue' : (selectedSeatPlan[seatNumber] ? 'lightgreen' : 'lightcoral'),
+                      backgroundColor: selectedSeat === seatNumber
+                        ? 'lightblue'
+                        : selectedSeatPlan[seatNumber]
+                        ? 'lightgreen'
+                        : 'lightcoral',
                     }}
                   >
                     {seatNumber}
@@ -195,7 +233,7 @@ const HomePage = () => {
             {selectedSeat && (
               <button className="book-btn" onClick={handleBooking}>Book Seat</button>
             )}
-            <button className="close-btn" onClick={() => setIsModalOpen(false)}>Close</button>
+            <button className="close-btn" onClick={() => closeseatplan()}>Close</button>
           </div>
         </div>
       )}
