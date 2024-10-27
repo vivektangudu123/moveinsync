@@ -6,6 +6,7 @@ import { Login_OTP, loginUser } from "../apicalls/user";
 import { useNavigate } from "react-router-dom";
 import { verify_jwt } from "../apicalls/axiosInstance";
 import { useEffect } from 'react';
+import "./Registration.css"
 function Registration() {
     useEffect(() => {
         const token = localStorage.getItem('JWT');

@@ -1,0 +1,107 @@
+/* Center container styling */
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f7f9fc;
+}
+
+/* Card styling */
+.card-body {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+/* Title styling */
+.card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Form label styling */
+.form-label-heading {
+    font-weight: 600;
+    color: #333333;
+}
+
+/* Required mark styling */
+.text-danger {
+    color: #d9534f !important;
+}
+
+/* Input field styling */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Button styling */
+.btn-primary, .btn-success {
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Mobile number and OTP row styling */
+.row {
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.col-md-9 {
+    padding-right: 0;
+}
+
+.btn-primary.col-md-2, .btn-success.col-md-2 {
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Link styling */
+.card-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .card-body {
+        width: 100%;
+        padding: 1rem;
+    }
+}
