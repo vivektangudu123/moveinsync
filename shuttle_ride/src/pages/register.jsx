@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import axios from 'axios'; 
 import { Login_OTP, loginUser } from "../apicalls/user";
 import { useNavigate } from "react-router-dom";
 import { verify_jwt } from "../apicalls/axiosInstance";
@@ -115,23 +114,11 @@ function Registration() {
 
     }
     const sendemailotp = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert("Invalid email address. Please enter a valid email address.");
-            return;
-        }
 
-        // Logic to send OTP to the provided email
         setemailotpSent(true);
     }
 
     const verifyemailotp = () => {
-
-        if (emailotp.length < 6) {
-            alert("Enter a Valid OTP to verify your Email address");
-            return;
-        }
-        //logic to verify email by otp
         setisemailverified(true);
         setemailotpSent(false);
     }

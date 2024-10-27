@@ -25,7 +25,7 @@ public class User {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Booking> bookings = new ArrayList<>(); // List of bookings made by the user
+    private List<Booking> bookings = new ArrayList<>();
 
     // Default constructor
     public User() {

@@ -50,7 +50,7 @@ public class UserController {
         String email = (String) payload.get("email");
         String phoneNumber = (String) payload.get("phoneNumber");
 
-        // Check if the user with the same phone number or email exists
+
         if (userRepository.existsByPhoneNumber(phoneNumber)) {
             return "Phone number already exists!";
         }
@@ -59,7 +59,6 @@ public class UserController {
             return "Email already exists!";
         }
 
-        // Create a new user and save it using the service
         User newUser = new User(name, email, gender, phoneNumber);
         userService.saveUser(newUser);
 
@@ -88,7 +87,7 @@ public class UserController {
                 .collect(Collectors.toList());
 
 //        for(BookingDTO a: bookingDTOs){
-////            System.out.println(a.getBookingTime());
+//            System.out.println(a.getBookingTime());
 //        }
         return ResponseEntity.ok(bookingDTOs);
     }

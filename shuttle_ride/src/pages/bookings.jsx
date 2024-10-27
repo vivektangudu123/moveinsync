@@ -7,7 +7,6 @@ function ManageBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookings = async () => {

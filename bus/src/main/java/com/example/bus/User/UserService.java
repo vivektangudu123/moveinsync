@@ -19,7 +19,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    // Constructor
     @Autowired
     private final AuthenticationController authenticationController;
 
@@ -30,7 +29,7 @@ public class UserService {
     private final BookingService bookingService;
 
     private int s1,s2,d1,d2;
-    private Scanner scanner;
+    private final Scanner scanner;
 
 
     public UserService(UserRepository userRepository, AuthenticationController authenticationController, BusService busService, BookingService bookingService) {
