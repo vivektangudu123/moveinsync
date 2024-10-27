@@ -181,7 +181,7 @@ const HomePage = () => {
         {buses.map((bus) => (
           <div key={bus.busId} className={`bus-item ${bus.live ? 'live' : 'not-live'}`} style={{ backgroundColor: bus.color }}>
             <h3>{bus.busName} (ID: {bus.busId})</h3>
-            <p>Total Seats: {bus.totalSeats}</p>
+            <p>Total Seats: {bus.totalColumns*bus.totalRows}</p>
             <p>Current Occupancy: {bus.currentOccupancy}</p>
             <p className="live-status" style={{ color: bus.live ? 'white' : 'blue' }}>{bus.live ? 'Live' : 'Not Live'}</p>
             <button className="view-seat-plan-btn" onClick={() => viewSeatPlan(bus.seatPlan, bus.busId,bus.totalColumns)}>View Seat Plan</button>

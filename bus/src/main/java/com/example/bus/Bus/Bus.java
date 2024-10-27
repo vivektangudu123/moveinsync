@@ -33,6 +33,7 @@ public class Bus {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "bus_route", joinColumns = @JoinColumn(name = "bus_id"))
     @Column(name = "route")
+    @OrderColumn(name = "sequence")
     private List<Pair<Integer, Integer>> route; 
 
     @ElementCollection(fetch = FetchType.EAGER)
