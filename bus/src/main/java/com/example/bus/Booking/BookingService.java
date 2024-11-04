@@ -34,7 +34,7 @@ public class BookingService {
         return false;
     }
 
-    // Change booking status
+
     public Booking changeBookingStatus(int bookingId, BookingStatus newStatus) throws Exception {
         Optional<Booking> bookingOptional = bookingRepository.findById((long) bookingId);
 
@@ -47,17 +47,17 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    // Get all bookings based on userId
+
     public List<Booking> getBookingsByUserId(int userId) {
         return bookingRepository.findByUser_userId(userId);
     }
 
-    // Get all bookings based on busId
+
     public List<Booking> getBookingsByBusId(int busId) {
         return bookingRepository.findByBus_busId(busId);
     }
 
-    // Get booking by bookingId
+
     public Optional<Booking> getBookingById(int bookingId) {
         return bookingRepository.findById((long) bookingId);
     }

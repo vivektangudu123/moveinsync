@@ -40,11 +40,11 @@ public class UserService {
         userRepository.save(user);
         System.out.println("User saved: " + user.getName());
     }
-    public boolean do_auth(String phoneNumber){
-        String sendOtp = authenticationController.send_otp(phoneNumber, 1);
+    public boolean doAuth(String phoneNumber){
+        String sendOtp = authenticationController.sendOtp(phoneNumber, 1);
         System.out.print("Enter OTP: ");
         String OTP = scanner.nextLine();
-        return authenticationController.verify_otp(phoneNumber, OTP);
+        return authenticationController.verifyOtp(phoneNumber, OTP);
 
     }
     // Retrieve all users
@@ -59,7 +59,7 @@ public class UserService {
             System.out.println("Number already exists!! Try again");
             return -1;
         }
-        if(!do_auth(phoneNumber)){
+        if(!doAuth(phoneNumber)){
             System.out.println("Authentication Failed!!");
             return -1;
         }else{
@@ -94,7 +94,7 @@ public class UserService {
             System.out.println("Number does not exists!! Try again");
             return -1;
         }
-        if(!do_auth(phoneNumber)){
+        if(!doAuth(phoneNumber)){
             System.out.println("Authentication Failed!!");
             return -1;
         }else {
@@ -118,7 +118,7 @@ public class UserService {
         }
 
     }
-    public List<Bus> get_view_buses(int s1,int s2,int d1,int d2){
+    public List<Bus> getViewBuses(int s1,int s2,int d1,int d2){
         return busService.getAvailableBuses(new Pair<>(s1,s2),new Pair<>(d1,d2));
     }
     public void viewBuses(){
@@ -130,7 +130,7 @@ public class UserService {
         d1 = scanner.nextInt();
         System.out.println("Enter latitude for Destination:");
         d2 = scanner.nextInt();
-        List<Bus> available_buses=get_view_buses(s1,s2,d1,d2);
+        List<Bus> available_buses=getViewBuses(s1,s2,d1,d2);
         for (Bus a : available_buses) {
             System.out.println("Bus name: " + a.getBusName() + ",Id: " + a.getId() + ",Occupancy Rate:" + a.getSeatAvailabilityColor());
         }
@@ -148,7 +148,7 @@ public class UserService {
             }
         }
     }
-    public Bus cancel_seat(int aa) throws Exception {
+    public Bus cancelSeat(int aa) throws Exception {
         Booking bo=bookingService.changeBookingStatus(aa,BookingStatus.CANCELLED);
         Bus bus=bo.getBus();
         bus.cancelSeatBooking(bo.getSeatNumber());
@@ -162,7 +162,7 @@ public class UserService {
         }
         System.out.println("Which booking you want to cancel\n");
         int aa=scanner.nextInt();
-        cancel_seat(aa);
+        cancelSeat(aa);
     }
 
     public User findByUserId(int loggedUserId) {

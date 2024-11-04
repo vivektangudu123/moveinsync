@@ -67,7 +67,6 @@ public class Bus {
         this.seatPlan = generateDefaultSeatPlan();
     }
 
-    // Generate seat plan dynamically based on total rows and columns
     private Map<String, Boolean> generateDefaultSeatPlan() {
         Map<String, Boolean> seatPlan = new HashMap<>();
         String[] columns = generateColumnLetters(totalColumns); 
@@ -88,7 +87,6 @@ public class Bus {
         return columns;
     }
 
-    // Generate the list of all days of the week
     private List<String> generateDefaultAvailableDays() {
         List<String> days = new ArrayList<>();
         days.add("Monday");
@@ -101,7 +99,6 @@ public class Bus {
         return days;
     }
 
-    // Getters and Setters
 
     public int getId() {
         return busId;
@@ -164,32 +161,28 @@ public class Bus {
         this.isLive = isLive;
     }
 
-    // Method to book a seat
     public boolean bookSeat(String seatNumber) {
         if (seatPlan.get(seatNumber) != null && seatPlan.get(seatNumber)) {
             seatPlan.put(seatNumber, false); // Mark the seat as booked
             currentOccupancy++;
             return true;
         }
-        return false; // Seat not available or does not exist
+        return false;
     }
 
-    // Method to cancel a seat booking
     public boolean cancelSeatBooking(String seatNumber) {
         if (seatPlan.get(seatNumber) != null && !seatPlan.get(seatNumber)) {
-            seatPlan.put(seatNumber, true); // Mark the seat as available
+            seatPlan.put(seatNumber, true);
             currentOccupancy--;
             return true;
         }
-        return false; // Seat not booked or does not exist
+        return false;
     }
 
-    // Calculate occupancy percentage
     public double getOccupancyPercentage() {
         return (double) currentOccupancy / (totalColumns * totalRows) * 100;
     }
 
-    // Color coding for seat availability based on occupancy percentage
     public String getSeatAvailabilityColor() {
         double occupancy = getOccupancyPercentage();
         if (occupancy <= 60) {
@@ -201,7 +194,6 @@ public class Bus {
         }
     }
 
-    // Print the seat plan with color coding for availability
     public void printSeatPlan() {
         String resetColor = "\u001B[0m";
         String bookedColor = "\u001B[31m";

@@ -19,7 +19,6 @@ public class BusService {
         return busRepository.save(bus);
     }
 
-    // Update an existing bus
     public Bus updateBus(int id,Bus updatedBus) {
         Optional<Bus> optionalBus = busRepository.findById(id);
         if (optionalBus.isPresent()) {
@@ -36,14 +35,13 @@ public class BusService {
         return null;
     }
 
-    // Delete a bus
     public void deleteBus(int id) {
         busRepository.deleteById(id);
     }
 
 
     public List<Bus> getAvailableBuses(Pair<Integer, Integer> source, Pair<Integer, Integer> destination) {
-        List<Bus> buses = busRepository.findAll(); // Fetch all buses
+        List<Bus> buses = busRepository.findAll();
         List<Bus> matchingBuses = new ArrayList<>();
 
         for (Bus bus : buses) {
@@ -51,7 +49,6 @@ public class BusService {
             int sourceIndex = route.indexOf(source);
             int destinationIndex = route.indexOf(destination);
 
-            // Ensure that source exists, destination exists, and destination comes after source
             if (sourceIndex != -1 && destinationIndex != -1 && destinationIndex > sourceIndex) {
                 matchingBuses.add(bus);
             }
@@ -59,14 +56,13 @@ public class BusService {
         return matchingBuses;
     }
 
-    // Book a seat on a specific bus
     public String bookSeat(int id,String seatNumber) {
         Optional<Bus> optionalBus = busRepository.findById(id);
         if (optionalBus.isPresent()) {
             Bus bus = optionalBus.get();
             boolean success = bus.bookSeat(seatNumber);
             if (success) {
-                busRepository.save(bus); // Update the bus after booking
+                busRepository.save(bus);
                 return "Seat " + seatNumber + " booked successfully!";
             } else {
                 return "Seat " + seatNumber + " is already booked or does not exist!";
@@ -75,7 +71,6 @@ public class BusService {
         return "Bus not found";
     }
 
-    // Cancel a seat booking
     public String cancelSeat(int id,String seatNumber) {
         Optional<Bus> optionalBus = busRepository.findById(id);
         if (optionalBus.isPresent()) {
@@ -97,20 +92,16 @@ public class BusService {
     public void addBus() {
         Scanner scanner = new Scanner(System.in);
 
-        // Get bus name
         System.out.println("Enter Bus Name:");
         String busName = scanner.nextLine();
 
-        // Get total seats
         System.out.println("Enter Total Rows:  (default value)");
         int totalrows = scanner.nextInt();
         System.out.println("Enter Total Columns:  (default value)");
         int totalcolums = scanner.nextInt();
-        // Get current occupancy
         System.out.println("Enter Current Occupancy (number of booked seats): 0");
 //        int currentOccupancy = scanner.nextInt();
 
-        // Get route (list of pairs of source and destination)
         System.out.println("Enter number of stops in the route:");
         int numStops = scanner.nextInt();
         List<Pair<Integer, Integer>> route = new ArrayList<>();

@@ -17,18 +17,18 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false) 
-    private User user; // Reference to the User entity
+    private User user;
 
-    private String seatNumber; // The seat number booked
+    private String seatNumber;
 
     @ManyToOne
-    @JoinColumn(name = "busId", nullable = false) // Foreign key to the Bus entity
+    @JoinColumn(name = "busId", nullable = false)
     private Bus bus;
 
     private LocalDateTime bookingTime; 
 
     @Column(nullable = false)
-    private LocalDate travelDate; // Date of the journey
+    private LocalDate travelDate;
 
     private Pair<Integer, Integer> source; 
     private Pair<Integer, Integer> destination;
@@ -45,11 +45,10 @@ public class Booking {
         this.travelDate = travelDate;
         this.source = source;
         this.destination = destination;
-        this.status = BookingStatus.PENDING; // Set default status to PENDING
+        this.status = BookingStatus.PENDING;
     }
     public Booking() {
     }
-    // Getters and Setters
     public int getId() {
         return bookingId;
     }

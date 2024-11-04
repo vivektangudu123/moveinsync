@@ -27,11 +27,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
 
-    // Default constructor
     public User() {
     }
 
-    // Parameterized constructor
     public User(String name, String email, String gender, String phoneNumber) {
         this.name = name;
         this.email = email;
@@ -39,7 +37,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    // Getters and Setters
     public int getUserId() {
         return userId;
     }
@@ -88,9 +85,8 @@ public class User {
         this.bookings = bookings;
     }
 
-    // Method to add a booking to the user
     public void addBooking(Booking booking) {
         bookings.add(booking);
-        booking.setUser(this); // Set the user in the booking
+        booking.setUser(this);
     }
 }

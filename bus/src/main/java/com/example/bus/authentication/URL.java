@@ -19,20 +19,20 @@ public class URL {
     public String send_otp(@RequestBody Map<String, Object> payload) {
         String mobileNumber = (String) payload.get("mobileNumber");
         int role = (int) payload.get("role");
-        return authenticationController.send_otp(mobileNumber, role);
+        return authenticationController.sendOtp(mobileNumber, role);
     }
     @CrossOrigin
     @PostMapping("/auth/jwt")
     public String verifyJwt(@RequestBody Map<String, Object> payload) {
         String jwt=(String) payload.get("jwt");
-        return authenticationController.verify_jwt(jwt);
+        return authenticationController.verifyJwt(jwt);
     }
     @CrossOrigin
     @PostMapping("/auth/verify_otp")
     public String verifyOtp(@RequestBody Map<String, Object> payload) {
         String mobileNumber = (String) payload.get("mobileNumber");
         String otp = (String) payload.get("otp");
-        if(authenticationController.verify_otp(mobileNumber, otp)){
+        if(authenticationController.verifyOtp(mobileNumber, otp)){
             return jwtUtils.generateToken(mobileNumber);
         }
         return "-1";

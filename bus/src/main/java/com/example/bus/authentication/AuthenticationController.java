@@ -18,7 +18,7 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
-    public String send_otp(String mobile_number, int role) {
+    public String sendOtp(String mobile_number, int role) {
         if (userRepository.existsByPhoneNumber(mobile_number)) {
             try {
                 String otpStatus = authenticationService.send_otp(mobile_number);
@@ -36,15 +36,15 @@ public class AuthenticationController {
 
 
 
-    public String verify_jwt(String JWT) {
+    public String verifyJwt(String JWT) {
         System.out.println(JWT);
-        String username=get_username_using_jwt(JWT);
+        String username=getUsernameusingJwt(JWT);
         System.out.println(username);
         return username;
     }
 
 
-    public boolean verify_otp(String mobile_number,String otp) {
+    public boolean verifyOtp(String mobile_number,String otp) {
         return  true;
 //        String s=authenticationService.verify_otp(mobile_number,otp);
 //        if (s.equals("approved")) {
@@ -64,7 +64,7 @@ public class AuthenticationController {
     }
 
 
-    public String get_username_using_jwt(String token) {
+    public String getUsernameusingJwt(String token) {
         try {
             return jwtUtils.extractUsername(token);
         } catch (ExpiredJwtException ex) {

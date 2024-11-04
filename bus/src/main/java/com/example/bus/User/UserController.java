@@ -63,7 +63,7 @@ public class UserController {
     @PostMapping(value="/users/bookings",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BookingDTO>> boookings(@RequestBody Map<String, Object> payload) {
         String jwt = (String) payload.get("jwt");
-        String mobileNUmber = authenticationController.verify_jwt(jwt);
+        String mobileNUmber = authenticationController.verifyJwt(jwt);
         User user = userRepository.findByPhoneNumber(mobileNUmber);
         System.out.println(user.getUserId());
         List<Booking> bookings = bookingService.getBookingsByUserId(user.getUserId());
@@ -97,10 +97,9 @@ public class UserController {
         try {
 //            bookingId = Integer.parseInt(booking_str);
         } catch (NumberFormatException e) {
-            // Handle the case where the string cannot be parsed as an integer
             throw new Exception("Invalid BookingID format", e);
         }
-        userService.cancel_seat(booking_str);
+        userService.cancelSeat(booking_str);
         return true;
     }
     @CrossOrigin
@@ -113,7 +112,7 @@ public class UserController {
         String ss2=(String) payload.get("s2");
         String dd1=(String) payload.get("d1");
         String dd2=(String) payload.get("d2");
-        String mobileNUmber = authenticationController.verify_jwt(jwt);
+        String mobileNUmber = authenticationController.verifyJwt(jwt);
         User user = userRepository.findByPhoneNumber(mobileNUmber);
         int s1,s2,d1,d2,bus;
         try {
@@ -144,7 +143,7 @@ public class UserController {
 
             System.out.println("Source: " + s1 + ", " + s2);
             System.out.println("Destination: " + d1 + ", " + d2);
-            List<Bus> availableBuses = userService.get_view_buses(s1, s2, d1, d2);
+            List<Bus> availableBuses = userService.getViewBuses(s1, s2, d1, d2);
 
             List<BusDTO> bookingDTOs = availableBuses.stream()
                     .map(bus -> new BusDTO(
