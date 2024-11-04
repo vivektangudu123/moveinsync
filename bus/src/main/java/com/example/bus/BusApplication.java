@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 @SpringBootApplication
 public class BusApplication implements CommandLineRunner {
-
 	@Autowired
 	private UserService userService;
 	@Autowired

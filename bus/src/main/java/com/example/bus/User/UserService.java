@@ -16,27 +16,20 @@ import java.util.Scanner;
 
 @Service
 public class UserService {
-
-    private final UserRepository userRepository;
-
     @Autowired
-    private final AuthenticationController authenticationController;
-
+    private  UserRepository userRepository;
     @Autowired
-    private final BusService busService;
-
+    private  AuthenticationController authenticationController;
     @Autowired
-    private final BookingService bookingService;
+    private  BusService busService;
+    @Autowired
+    private  BookingService bookingService;
 
     private int s1,s2,d1,d2;
     private final Scanner scanner;
 
 
-    public UserService(UserRepository userRepository, AuthenticationController authenticationController, BusService busService, BookingService bookingService) {
-        this.userRepository = userRepository;
-        this.authenticationController = authenticationController;
-        this.busService = busService;
-        this.bookingService = bookingService;
+    public UserService() {
         this.scanner = new Scanner(System.in);
     }
 

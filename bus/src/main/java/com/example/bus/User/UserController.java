@@ -24,23 +24,17 @@ import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
-    @Autowired
-    private final UserService userService;
-    @Autowired
-    private final UserRepository userRepository;
-    @Autowired
-    private final AuthenticationController authenticationController;
-    @Autowired
-    private final BookingService bookingService;
 
     @Autowired
+    private  UserRepository userRepository;
+    @Autowired
+    private  AuthenticationController authenticationController;
+    @Autowired
+    private  BookingService bookingService;
+    @Autowired
     private BusService busService;
-    public UserController(UserService userService, UserRepository userRepository, AuthenticationController authenticationController, BookingService bookingService) {
-        this.userService = userService;
-        this.userRepository = userRepository;
-        this.authenticationController = authenticationController;
-        this.bookingService = bookingService;
-    }
+    @Autowired
+    private UserService userService;
 
     @CrossOrigin
     @PostMapping("/users/create")

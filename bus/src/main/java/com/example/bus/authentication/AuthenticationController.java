@@ -11,15 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationController {
-    private final AuthenticationService authenticationService;
-    private final JwtUtils jwtUtils;
+    @Autowired
+    private  AuthenticationService authenticationService;
+    @Autowired
+    private JwtUtils jwtUtils;
     @Autowired
     private UserRepository userRepository;
-
-    public AuthenticationController(AuthenticationService authenticationService, JwtUtils jwtUtils) {
-        this.authenticationService = authenticationService;
-        this.jwtUtils = jwtUtils;
-    }
 
     public String send_otp(String mobile_number, int role) {
         if (userRepository.existsByPhoneNumber(mobile_number)) {
