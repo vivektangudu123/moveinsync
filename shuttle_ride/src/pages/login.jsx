@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Login_OTP, loginUser } from "../apicalls/user";
-import { verify_jwt } from "../apicalls/axiosInstance";
+import { verify_jwt } from "../apicalls/user.js";
 
 function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -9,16 +9,24 @@ function Login() {
   const [mobileNumberOtpSent, setMobileNumberOtpSent] = useState(false);
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
-    const token = localStorage.getItem("JWT");
+    const token = localStorage.getItem('JWT');
     if (token) {
-      const response = verify_jwt(token);
-      if (response !== "1" && response !== "2") {
-        navigate("/Home");
-      } else {
-        navigate("/LandingPage");
-      }
+      const verifyToken = async () => {
+        try {
+          const response = await verify_jwt(token); 
+          console.log(response);
+          if (response === "-1" || response === "-2") {
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Error verifying JWT:", error);
+          navigate("/login");
+        }
+      };
+      verifyToken();
+    } else {
+      navigate("/login");
     }
   }, [navigate]);
 
@@ -30,6 +38,7 @@ function Login() {
     }
     try {
       const response = await loginUser(mobileNumber, 1);
+      console.log(response);
       if (response === "pending") {
         setMobileNumberOtpSent(true);
       } else {
@@ -48,6 +57,7 @@ function Login() {
     }
     try {
       const response = await Login_OTP(mobileNumber, otp);
+      console.log(response);
       if (response === true) {
         setLoginSuccessful(true);
         navigate("/Home");

@@ -1,26 +1,31 @@
 
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { Login_OTP, loginUser } from "../apicalls/user";
+import { Login_OTP, loginUser,verify_jwt } from "../apicalls/user";
 import { useNavigate } from "react-router-dom";
-import { verify_jwt } from "../apicalls/axiosInstance";
 import { useEffect } from 'react';
 import "./Registration.css"
 function Registration() {
     useEffect(() => {
         const token = localStorage.getItem('JWT');
-    
         if (token) {
-          console.log("Found a JWT token");
-          const response = verify_jwt(token);
-    
-          if (response !== "1" && response !== "2") {
-            navigate("/Home");
-          } else {
-              navigate("/LandingPage")
-          }
+          const verifyToken = async () => {
+            try {
+              const response = await verify_jwt(token); 
+              console.log(response);
+              if (response === "-1" || response === "-2") {
+                navigate("/login");
+              }
+            } catch (error) {
+              console.error("Error verifying JWT:", error);
+              navigate("/login");
+            }
+          };
+          verifyToken();
+        } else {
+          navigate("/login");
         }
-    }, []);
+      }, [navigate]);
     const [name,setName] = useState('');
     const [gender, setGender] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');

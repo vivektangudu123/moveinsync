@@ -1,5 +1,5 @@
 import React from "react";
-import { verify_jwt } from "../apicalls/axiosInstance.js";
+import { verify_jwt } from "../apicalls/user.js";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,16 +8,24 @@ function LandingPage() {
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('JWT');
-
     if (token) {
-      console.log("Found a JWT token");
-      const response = verify_jwt(token);
-
-      if (response !== "1" && response !== "2") {
-        navigate("/Home");
-      }
+      const verifyToken = async () => {
+        try {
+          const response = await verify_jwt(token); 
+          console.log(response);
+          if (response === "-1" || response === "-2") {
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Error verifying JWT:", error);
+          navigate("/login");
+        }
+      };
+      verifyToken();
+    } else {
+      navigate("/login");
     }
-  }, []);
+  }, [navigate]);
    
   return (
     <div className="App">

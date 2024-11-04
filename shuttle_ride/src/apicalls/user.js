@@ -12,6 +12,7 @@ export const loginUser = async (mobileNumber, Role) => {
 
         if (response.ok) {
             const data = await response.text();
+            console.log(data);
             return data === "pending" ? "pending" : data;
         } else {
             console.log(`Request failed with status: ${response.status}`);
@@ -72,31 +73,7 @@ export const getUserBookings = async () => {
     const data = await response.json();
     return data; 
 };
-export const book_seat = async (busId,seat,s1,s2,d1,d2) => {
-    const token = localStorage.getItem('JWT');
-    const response = await fetch("http://localhost:5001/users/seat-booking", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            BusId: busId,
-            seat: seat,
-            s1: s1,
-            s2: s2,
-            d1: d1,
-            d2: d2,
-            jwt: token
-        })
-    }).then(response => response.text()) 
-    .then(data => {
-        console.log(data); 
-        return true;
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-};
+
 export const cancelBooking = async (bookingId) => {
     const token = localStorage.getItem('JWT');
     console.log(bookingId);
@@ -129,7 +106,53 @@ export const search_busses = async (s1, s2, d1, d2) => {
     });
 
     const data = await response.json();
+    console.log(data);
     return data; 
 };
-
-    
+export const verify_jwt = async (token) => {
+    try {
+      const response = await fetch("http://localhost:5001/auth/jwt", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          jwt: token
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const textResponse = await response.text();
+      return textResponse; 
+    } catch (error) {
+      console.error("Error verifying JWT:", error);
+      return "-1"; 
+    }
+  };
+  export const book_seat = async (busId,seat,s1,s2,d1,d2) => {
+    const token = localStorage.getItem('JWT');
+    const response = await fetch("http://localhost:5001/users/seat-booking", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            BusId: busId,
+            seat: seat,
+            s1: s1,
+            s2: s2,
+            d1: d1,
+            d2: d2,
+            jwt: token
+        })
+    })
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const textResponse = await response.text();
+      return textResponse; 
+};

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { search_busses ,book_seat} from '../apicalls/user';
-import { verify_jwt } from "../apicalls/axiosInstance";
+import { verify_jwt } from "../apicalls/user.js";
 import './HomePage.css'; 
 
 const HomePage = () => {
@@ -22,7 +22,8 @@ const HomePage = () => {
     if (token) {
       const verifyToken = async () => {
         try {
-          const response = await verify_jwt(token);
+          const response = await verify_jwt(token); 
+          console.log(response);
           if (response === "-1" || response === "-2") {
             navigate("/login");
           }
@@ -36,6 +37,7 @@ const HomePage = () => {
       navigate("/login");
     }
   }, [navigate]);
+  
 
   const handleManageBookings = () => {
     navigate("/manage-bookings");
@@ -78,13 +80,14 @@ const HomePage = () => {
               seat: selectedSeat,
               s1: sourceLatitude,
               s2: sourceLongitude,
-              d1: destinationLatitude,  
-              d2: destinationLongitude,  
+              d1: destinationLatitude,
+              d2: destinationLongitude,
               jwt: token
           })
         });
 
         const data = await response.text(); 
+
         if (response.ok && data === "true") {
           alert("Seat booked successfully!");
         } else {
