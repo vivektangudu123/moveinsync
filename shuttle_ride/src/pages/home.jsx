@@ -70,25 +70,9 @@ const HomePage = () => {
     const token = localStorage.getItem('JWT');
     try {
       if (selectedSeat && selectedBusId) {
-        const response = await fetch("http://localhost:5001/users/seat-booking", {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              BusId: selectedBusId,
-              seat: selectedSeat,
-              s1: sourceLatitude,
-              s2: sourceLongitude,
-              d1: destinationLatitude,
-              d2: destinationLongitude,
-              jwt: token
-          })
-        });
-
-        const data = await response.text(); 
-
-        if (response.ok && data === "true") {
+        const respons = await book_seat(selectedBusId, selectedSeat, sourceLatitude, sourceLongitude, destinationLatitude, destinationLongitude)
+        console.log(respons);  
+        if (respons === "true") {
           alert("Seat booked successfully!");
         } else {
           alert("Failed to book seat.");
