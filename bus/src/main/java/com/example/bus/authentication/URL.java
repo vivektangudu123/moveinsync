@@ -8,11 +8,9 @@ import java.util.Map;
 public class URL {
     @Autowired
     private AuthenticationController authenticationController;
-    private final JwtUtils jwtUtils;
+    @Autowired
+    private  JwtUtils jwtUtils;
 
-    public URL(JwtUtils jwtUtils) {
-        this.jwtUtils = jwtUtils;
-    }
 
     @CrossOrigin
     @PostMapping("/auth/send_otp")

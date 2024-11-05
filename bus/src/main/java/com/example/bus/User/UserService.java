@@ -9,6 +9,7 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -164,7 +165,6 @@ public class UserService {
         int aa=scanner.nextInt();
         cancelSeat(aa);
     }
-
     public User findByUserId(int loggedUserId) {
         return userRepository.findByuserId(loggedUserId);
     }

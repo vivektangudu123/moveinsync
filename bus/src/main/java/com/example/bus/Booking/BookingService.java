@@ -52,7 +52,6 @@ public class BookingService {
         return bookingRepository.findByUser_userId(userId);
     }
 
-
     public List<Booking> getBookingsByBusId(int busId) {
         return bookingRepository.findByBus_busId(busId);
     }
