@@ -90,7 +90,6 @@ public class UserController {
     @PostMapping("/users/cancel-booking")
     public boolean cancelBooking(@RequestBody Map<String, Object> payload) throws Exception {
         String jwt = (String) payload.get("jwt");
-
         int booking_str = (Integer) payload.get("BookingID");
         System.out.println(booking_str);
         int bookingId;

@@ -82,7 +82,7 @@ public class BusApplication implements CommandLineRunner {
 						}
 						break;
 					case 6:
-						loggedUserId = -1; // Log out the user
+						loggedUserId = -1;
 						System.out.println("You have been logged out.");
 						break;
 					case 7:

@@ -34,9 +34,7 @@ public class UserService {
         this.scanner = new Scanner(System.in);
     }
 
-    // Save a user to the database
     public void saveUser(User user) {
-        // Simulate interaction with the terminal for saving
         System.out.println("Saving user to the database...");
         userRepository.save(user);
         System.out.println("User saved: " + user.getName());
@@ -48,7 +46,6 @@ public class UserService {
         return authenticationController.verifyOtp(phoneNumber, OTP);
 
     }
-    // Retrieve all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -79,10 +76,10 @@ public class UserService {
         System.out.println("Enter your gender (M/F): ");
         String gender = scanner.nextLine();
 
-        // Create a new User object with the input details
+
         User newUser = new User(name, email, gender, phoneNumber);
 
-        // Call the service class to save the user
+
         userRepository.save(newUser);
 
         System.out.println("User registered successfully!");
