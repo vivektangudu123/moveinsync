@@ -6,12 +6,12 @@ by Vivek Tangudu
 
 - **Users**
     - Book a bus seat
-    - View Seat plan of the bus along with ETA
+    - View Seat plan of the bus 
     - Cancel booking
     - Register in the website
 - Admin
     - Add a bus
-    - Modify bus
+    - Modify bus ( Need to implement )
 
 ### Tech stack
 
